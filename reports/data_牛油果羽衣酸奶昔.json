@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "hash": "7e052c8f779ae892",
+    "timestamp": "2026-05-10 16:43",
+    "engine_version": "3.0",
+    "n_personas": 493,
+    "is_blind_test": true,
+    "is_mock": false,
+    "models_used": [
+      "claude-haiku",
+      "claude-sonnet"
+    ],
+    "disclaimer": "BLIND TEST - prediction locked before outcome"
+  },
+  "summary": {
+    "product_name": "牛油果羽衣酸奶昔",
+    "n_valid": 493,
+    "n_errors": 7,
+    "avg_score": 5.0,
+    "try_rate": 13.2,
+    "maybe_try_rate": 76.7,
+    "repurchase_rate": 0.0,
+    "recommend_rate": 24.5,
+    "prediction": "FAILURE",
+    "segments": {
+      "年龄:18-24": {
+        "n": 139,
+        "avg_score": 5.2,
+        "try_rate": 12.9
+      },
+      "年龄:41-50": {
+        "n": 72,
+        "avg_score": 4.5,
+        "try_rate": 19.4
+      },
+      "年龄:25-30": {
+        "n": 158,
+        "avg_score": 5.1,
+        "try_rate": 13.9
+      },
+      "年龄:31-40": {
+        "n": 124,
+        "avg_score": 5.0,
+        "try_rate": 8.9
+      },
+      "城市层级:三线及以下": {
+        "n": 128,
+        "avg_score": 4.6,
+        "try_rate": 11.7
+      },
+      "城市层级:二线": {
+        "n": 140,
+        "avg_score": 5.2,
+        "try_rate": 15.7
+      },
+      "城市层级:一线": {
+        "n": 103,
+        "avg_score": 5.0,
+        "try_rate": 10.7
+      },
+      "城市层级:新一线": {
+        "n": 122,
+        "avg_score": 5.2,
+        "try_rate": 13.9
+      },
+      "性别:女性": {
+        "n": 275,
+        "avg_score": 5.2,
+        "try_rate": 16.0
+      },
+      "性别:男性": {
+        "n": 218,
+        "avg_score": 4.8,
+        "try_rate": 9.6
+      },
+      "收入:5K-10K": {
+        "n": 157,
+        "avg_score": 5.0,
+        "try_rate": 14.0
+      },
+      "收入:10K-20K": {
+        "n": 137,
+        "avg_score": 5.0,
+        "try_rate": 13.1
+      },
+      "收入:20K+": {
+        "n": 77,
+        "avg_score": 5.4,
+        "try_rate": 18.2
+      },
+      "收入:学生/月入<5K": {
+        "n": 122,
+        "avg_score": 4.9,
+        "try_rate": 9.0
+      },
+      "新品态度:保守派": {
+        "n": 68,
+        "avg_score": 4.2,
+        "try_rate": 0.0
+      },
+      "新品态度:跟风但谨慎": {
+        "n": 178,
+        "avg_score": 5.3,
+        "try_rate": 0.0
+      },
+      "新品态度:实用主义": {
+        "n": 153,
+        "avg_score": 4.7,
+        "try_rate": 2.6
+      },
+      "新品态度:尝鲜狂人": {
+        "n": 94,
+        "avg_score": 5.6,
+        "try_rate": 64.9
+      }
+    },
+    "model_stats": {
+      "claude-haiku": {
+        "n": 246,
+        "avg_score": 5.5,
+        "try_rate": 17.5
+      },
+      "claude-sonnet": {
+        "n": 247,
+        "avg_score": 4.6,
+        "try_rate": 8.9
+      }
+    },
+    "sample_reactions": [
+      {
+        "persona_id": 0,
+        "summary": "杯子好看能拍照，但饮品本身我没兴趣，25块也有点小贵",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 1,
+        "summary": "颜值可能还行，但这玩意儿跟我没啥关系，感觉是朋友圈发图用的，不是真的拿来喝的。",
+        "score": 3,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 2,
+        "summary": "颜值还不错但概念不新鲜，朋友圈有人晒我会试，但能不能留住我得看实际口感",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 3,
+        "summary": "颜值可能挺好看但跟我没什么关系，这是年轻女孩子的东西，我喝不进去这个。",
+        "score": 4,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 4,
+        "summary": "看起来很小红书，但我更在乎好不好喝，这个概念我真的不太买账。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 5,
+        "summary": "颜值挺高但我们e��迁这边没几个人稀罕喝这个，有这25块不如多点一份饭",
+        "score": 4,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 6,
+        "summary": "看起来挺小资的，但对我这样的保守派来说，25块钱喝一杯陌生的东西有点冒险。",
+        "score": 4,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 7,
+        "summary": "颜值还行值得拍个照发朋友圈，但我宁愿喝杯奶茶",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 8,
+        "summary": "颜值不错值得一试，但能不能复购还得看口味，健康概念听着不错就是怕有草味",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 9,
+        "summary": "颜值救它一命，但25块买一杯绿色蔬菜汁我宁愿多想想。",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 10,
+        "summary": "颜值不错概念新，但25块钱有点离谱，我得看别人的反馈再说。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 11,
+        "summary": "颜值可能还行但这玩意儿不适合我，更像是女生减肥打卡用的，我不太会主动点",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 12,
+        "summary": "看起来很适合小红书拍照，但我怀疑喝起来不会特别惊喜。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 13,
+        "summary": "颜值可以、概念对味，但瑞幸卖这个总感觉不太正经，试一次就行了",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 14,
+        "summary": "概念听起来不错但组合很怪，没有特别想安利给朋友的欲望。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 15,
+        "summary": "噱头大于实际，我这个年纪不需要靠喝绿色饮料来假装养生。",
+        "score": 4,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 16,
+        "summary": "看起来是为了拍照好看，我更关心喝着舒不舒服，这个概念有点虚。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 17,
+        "summary": "颜值可以拍个照发小红书，但25块的酸奶昔性价比太低，不会专门去买",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 18,
+        "summary": "看着不错但没什么吸引力，就是瑞幸又出的一款新品而已。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 19,
+        "summary": "颜值救了它，但羽衣甘蓝那股味儿我有点怕，发个朋友圈可以，天天喝不行",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 20,
+        "summary": "听起来健康但没什么吸引力，我就算了吧。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 21,
+        "summary": "概念挺健康颜值应该不错，但瑞幸做这个我持怀疑态度，喝过再说吧。",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 22,
+        "summary": "杯子好看，但这个健康概念对我没什么吸引力，而且价格有点虚高。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 23,
+        "summary": "颜值可以，但我去瑞幸不是为了喝草的，这种东西更适合发朋友圈而不是真的喝",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 24,
+        "summary": "颜值打动我去试一下，但别指望我经常复购。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 25,
+        "summary": "颜值可以有，但牛油果羽衣甘蓝这个组合在瑞幸出现感觉有点不伦不类，我宁愿去专门的轻食店喝。",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 26,
+        "summary": "颜值够打，但25块钱喝个酸奶昔有点贵，得好喝才值得",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 27,
+        "summary": "颜值可能挺好看，但我不是为了喝健康饮品去瑞幸的，感觉有点不伦不类",
+        "score": 4,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 28,
+        "summary": "适合打卡一次发圈，但不一定能成为回头客",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 29,
+        "summary": "概念挺时髦但我不确定瑞幸做这个能好喝，25块买个不知道味道的绿色饮料我有点舍不得。",
+        "score": 5,
+        "model": "claude-sonnet"
+      }
+    ],
+    "is_mock": false
+  },
+  "baselines": {
+    "claude-haiku": {
+      "prediction": "MODERATE",
+      "try_rate": 52,
+      "score": 6.8,
+      "reasons": [
+        "消费心理矛盾：牛油果+酸奶组合热量偏高（约200-250kcal），与'低卡轻食'定位不符，易引发消费者质疑，降低转化率",
+        "价格敏感度高：25元定价在瑞幸饮品中属中高端，而健康轻食品类用户对性价比要求更高，25元的接受度有限",
+        "差异化不足：牛油果+酸奶组合已是各品牌常规SKU，缺乏创新点；羽衣甘蓝作为功能成分知名度不够，难以形成话题驱动"
+      ],
+      "raw": "```json\n{\n  \"prediction\": \"MODERATE\",\n  \"try_rate\": 52,\n  \"score\": 6.8,\n  \"reasons\": [\n    \"消费心理矛盾：牛油果+酸奶组合热量偏高（约200-250kcal），与'低卡轻食'定位不符，易引发消费者质疑，降低转化率\",\n    \"价格敏感度高：25元定价在瑞幸饮品中属中高端，而健康轻食品类用户对性价比要求更高，25元的接受度有限\",\n    \"差异化不足：牛油果+酸奶组合已是各品牌常规SKU，缺乏创新点；羽衣甘蓝作为功能成分知名度不够，难以形成话题驱动\"\n  ]\n}\n```\n\n**补充分析：**\n\n| 维度 | 评估 |\n|------|------|\n| **优势** | ✓ 绿色颜值符合小红书审美<br>✓ \""
+    }
+  },
+  "product": {
+    "name": "牛油果羽衣酸奶昔",
+    "brand": "瑞幸咖啡",
+    "price": "约25元",
+    "description": "牛油果+羽衣甘蓝+酸奶的健康概念饮品，主打低卡轻食，绿色系高颜值杯身",
+    "category": "非咖啡·健康饮品",
+    "is_blind": true
+  }
+}
