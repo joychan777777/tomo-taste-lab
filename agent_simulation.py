@@ -6,7 +6,7 @@ TOMO Taste Lab — LLM Agent 消费者模拟引擎 v3.0
 升级内容（v3.0 vs v2.0）：
 - 🔴 R1 修复：支持多个不同 LLM 模型（Claude Haiku / Sonnet / DeepSeek / GPT-4o-mini）
   → 消除"同一个大脑扮演所有人"的偏差
-- 🔴 R2 修复：直测产品加入"LLM 是否已知"自检
+- 🔴 R2 修复：盲测产品加入"LLM 是否已知"自检
 - 🟡 Y1 修复：自动生成 baseline 对比（单次直接预测 vs 多Agent模拟）
 - 🟡 Y4 修复：persona 维度从 4 扩展到 7
 - 默认 500 人（从 200 升级，每分群 ~70 人，统计更可靠）
@@ -70,9 +70,9 @@ except ImportError:
 if "openai" in sys.modules:
     AVAILABLE_MODELS["deepseek"] = {
         "provider": "deepseek",
-        "model_id": "deepseek-chat",
-        "display": "DeepSeek V3",
-        "cost_per_1k": 0.0001
+        "model_id": "deepseek-v4-flash",
+        "display": "DeepSeek V4 Flash",
+        "cost_per_1k": 0.00028  # $/1K output tokens (approx)
     }
 
 random.seed(int(datetime.now().strftime("%Y%m%d")))
@@ -142,7 +142,7 @@ CHINA_DEMOGRAPHICS = {
         "一线": {
             "cities": ["北京", "上海", "广州", "深圳"],
             "weight": 0.18,
-            "traits": "消费力强，品牌敏感度高，掦触国际品牌多，对新品接受度高但也更挑剔"
+            "traits": "消费力强，品牌敏感度高，接触国际品牌多，对新品接受度高但也更挑剔"
         },
         "新一线": {
             "cities": ["成都", "杭州", "武汉", "南京", "重庆", "西安", "长沙", "苏州"],
@@ -161,7 +161,7 @@ CHINA_DEMOGRAPHICS = {
         }
     },
     "age_groups": [
-        {"range": "18-24", "weight": 0.28, "traits": "Z世代，重颜值，重社交货币，易被KOL影哿，尝鲜欲强，品牌忠诚度低"},
+        {"range": "18-24", "weight": 0.28, "traits": "Z世代，重颜值，重社交货币，易被KOL影响，尝鲜欲强，品牌忠诚度低"},欲强，品牌忠诚度低"},
         {"range": "25-30", "weight": 0.30, "traits": "职场新人到中层，消费能力上升，开始关注品质，会看测评，有自己判断"},
         {"range": "31-40", "weight": 0.27, "traits": "消费趋于理性，有明确偏好，不容易被营销打动，注重健康和品质"},
         {"range": "41-50", "weight": 0.15, "traits": "消费保守，偏好传统口味，不太关注社交媒体，价格和实用是核心"}
@@ -180,8 +180,8 @@ CHINA_DEMOGRAPHICS = {
     "income_levels": [
         {"level": "学生/月入<5K", "weight": 0.25, "traits": "价格极度敏感，一杯30元的饮品会反复犹豫，更关注优惠券和折扣"},
         {"level": "5K-10K", "weight": 0.30, "traits": "偶尔奖励自己，新品贵几块钱不太在意，但不会频繁购买高价饮品"},
-        {"level": "10K-20K", "weight": 0.28, "traits": "消费有选择但不拭据，更关注品质和体验，愿意为好东西多付一点"},
-        {"level": "20K+", "weight": 0.17, "traits": "价格不是主要考量，更看重品质、健康、品牌故事。会主动尝试新东西"}
+        {"level": "10K-20K", "weight": 0.28, "traits": "消费有选择但不拮据，更关注品质和体验，愿意为好东西多付一点"},
+        {"level": "20K+", "weight": 0.17, "traits": "价格不是主要考量，更看重品质、健康、品牌故事，会主动尝试新东西"}
     ],
     "social_media": [
         {"type": "小红书重度用户", "weight": 0.30, "traits": "被种草能力强，颜值即正义，会为了拍照买一杯饮品"},
@@ -191,9 +191,9 @@ CHINA_DEMOGRAPHICS = {
     ],
     "novelty_attitude": [
         {"type": "尝鲜狂人", "weight": 0.20, "traits": "每个新品都要试，是品牌的免费推广员，但复购率低"},
-        {"type": "跟风但谨慎", "weight": 0.35, "traits": "看到朋友圈有人昒才会试，不做第一批，但一旦认可会复购"},
-        {"type": "实用主义", "weight": 0.30, "traits": "新品？无所谓/不关注"也完全OK。祖利。好喝才重要。不在乎联名不联名"},
-        {"type": "保守派", "weight": 0.15, "traits": "有固定点皅习惯，几乎不尝试新品，除非旧的下架了"}
+        {"type": "跟风但谨慎", "weight": 0.35, "traits": "看到朋友圈有人晒才会试，不做第一批，但一旦认可会复购"},
+        {"type": "实用主义", "weight": 0.30, "traits": "新品？无所谓。好喝才重要。不在乎联名不联名"},
+        {"type": "保守派", "weight": 0.15, "traits": "有固定点单习惯，几乎不尝试新品，除非旧的下架了"}
     ]
 }
 
@@ -226,7 +226,7 @@ def generate_persona(pid):
 
     # 生成自然语言 persona 描述（v3: 更丰富）
     persona_text = (
-        f"你是一个{age['range']} 岁的{gender['g']}，住在{city}（{tier['name']} 城市）。"
+        f"你是一个{age['range']}岁的{gender['g']}，住在{city}（{tier['name']}城市）。"
         f"你的月收入水平：{income['level']}。"
         f"你的咖啡习惯：{coffee['level']}。"
         f"你的社交媒体习惯：{social['type']}。"
@@ -267,7 +267,7 @@ EVALUATION_SYSTEM_PROMPT = """你是一个真实的中国消费者。请完全�
 3. 不要客气。如果你觉得不好，直说。如果你觉得莫名其妙，也直说。
 4. 你的回答要像微信群里随口说的话，不要像写报告。
 5. 不是每个新品你都有兴趣。如果你根本不在乎，说"无所谓/不关注"也完全OK。
-6. 考虑你的经济状况。如果这个价格对你来说很贵，要诰出来。
+6. 考虑你的经济状况。如果这个价格对你来说很贵，要说出来。
 7. 想想你身边的朋友会怎么看这个产品。"""
 
 EVALUATION_USER_PROMPT = """瑞幸咖啡出了一个新品：
@@ -477,7 +477,7 @@ def aggregate_results(results, personas, product_name):
     if n == 0:
         return {"error": "no valid results"}
 
-    # 确保 score 为数值（防御性转换）
+    # 确保所有 score 为数值（防御性转换）
     for r in valid:
         r["score"] = int(float(r.get("score", 5)))
     avg_score = sum(r["score"] for r in valid) / n
@@ -625,7 +625,114 @@ def generate_report(summary, product, baselines, output_dir):
 1. **200-500 个 AI Agent ≠ 200-500 个独立样本。** 所有 Agent 共享底层语言模型。即使使用多模型，
    独立性仍远低于真实消费者调研。本报告的统计置信区间被系统性低估。
 2. **LLM 角色扮演 ≠ 真实消费行为。** Agent 模拟的是语言表达模式，不是大脑的决策过程。
-3e）"""
+3. **本工具是 X 光片，不是 CT 扫描。** 用途是快速方向判断（¥10/次），不替代正式市场调研（¥30-50万/次）。
+4. **所有预测都可能是错的。** 特别是对"中间地带"产品（不明显好也不明显差）的区分能力未经验证。
+"""
+
+    report = f"""# TOMO Taste Lab — 预测报告 v3.0
+
+> **报告 Hash**: `{report_hash}`
+> **生成时间**: {timestamp}
+> **引擎版本**: v3.0（多模型差异化）
+> **模拟规模**: {summary['n_valid']} 个 AI 消费者（{summary['n_errors']} 个错误）
+> **使用模型**: {', '.join(summary.get('model_stats', {}).keys())}
+> **产品**: {product['name']}
+> **类型**: {'盲测（BLIND TEST）' if product.get('is_blind') else '回测（BACKTEST）'}
+{mock_warning}
+---
+
+## 产品信息
+
+| 属性 | 内容 |
+|------|------|
+| 名称 | {product['name']} |
+| 品牌 | {product.get('brand', '未知')} |
+| 价格 | {product['price']} |
+| 类型 | {product['category']} |
+| 描述 | {product['description']} |
+
+---
+
+## 预测结果
+
+```
+平均得分:     {summary['avg_score']} / 10
+尝试意愿:     {summary['try_rate']}%
+考虑尝试:     {summary['maybe_try_rate']}%
+复购意愿:     {summary['repurchase_rate']}%
+推荐意愿:     {summary['recommend_rate']}%
+
+>>> 预测:     {summary['prediction']}
+```
+
+---
+
+## 人群拆解
+
+{segments_table}
+{model_table}
+{baseline_section}
+{reactions_section}
+{disclaimer}
+---
+
+## 方法论说明（v3.0）
+
+本报告由 TOMO Taste Lab v3.0 多模型消费者模拟引擎生成。
+
+**v3.0 与 v2.0 的差异：**
+- v2.0：所有 Agent 使用同一个 Claude Haiku 模型 → "同一个大脑扮演 200 个角色"
+- v3.0：Agent 分配到多个不同 LLM 模型（Claude / GPT / DeepSeek）→ 减少单模型偏差
+- v3.0：temperature 随机化（0.7-1.0）→ 同一模型内也有差异
+- v3.0：persona 从 4 维度扩展到 7 维度 → 更细致的消费者画像
+- v3.0：自动生成 baseline 对比 → 验证多 Agent 是否比"直接问 AI"更好
+
+Agent 之间无交互（v3.0），不考虑社交传播效应。
+模拟聚焦于：产品感知 × 个人偏好 × 消费场景 × 经济能力匹配。
+
+---
+
+*TOMO Taste Lab v3.0 by Joy Chan — 数据驱动的新品感知测试*
+*市场洞察 × 品牌审美 × 多模型 AI 模拟*
+"""
+
+    # 保存报告
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    safe_name = product['name'].replace(' ', '_').replace('/', '_')
+    report_path = output_dir / f"report_{safe_name}.md"
+    with open(report_path, "w") as f:
+        f.write(report)
+
+    # 保存原始数据
+    data_path = output_dir / f"data_{safe_name}.json"
+    with open(data_path, "w") as f:
+        json.dump({
+            "metadata": {
+                "hash": report_hash,
+                "timestamp": timestamp,
+                "engine_version": "3.0",
+                "n_personas": summary["n_valid"],
+                "is_blind_test": product.get("is_blind", False),
+                "is_mock": summary.get("is_mock", False),
+                "models_used": list(summary.get("model_stats", {}).keys()),
+                "disclaimer": "POST-HOC BACKTEST" if not product.get("is_blind") else "BLIND TEST - prediction locked before outcome"
+            },
+            "summary": summary,
+            "baselines": baselines,
+            "product": product
+        }, f, ensure_ascii=False, indent=2)
+
+    return report_path, data_path, report_hash
+
+
+# ============================================================
+# 5. 主流程（v3 升级）
+# ============================================================
+
+def run_simulation(product, n_personas=500, output_dir="./reports", model_mode="multi"):
+    """运行完整模拟（v3: 多模型 + baseline）"""
 
     print(f"🧪 TOMO Taste Lab — 消费者模拟引擎 v3.0（多模型差异化）")
     print(f"{'=' * 60}")
@@ -667,7 +774,7 @@ def generate_report(summary, product, baselines, output_dir):
     print("📋 生成消费者画像（7维度）...")
     personas = [generate_persona(i) for i in range(n_personas)]
 
-    # 确定每个 Agent 使用的模型（v3 核心２轮流分配）
+    # 确定每个 Agent 使用的模型（v3 核心：轮流分配）
     if not use_mock:
         model_assignments = []
         for i in range(n_personas):
@@ -745,7 +852,7 @@ LUCKIN_YOGURT_AVOCADO = {
     "name": "牛油果羽衣酸奶昔",
     "brand": "瑞幸咖啡",
     "price": "约25元",
-    "description": "牛油果+羽衣甘蓝+酸奶的健康榅念饮品，主打低卡轷食，绿色系高颜值杯身",
+    "description": "牛油果+羽衣甘蓝+酸奶的健康概念饮品，主打低卡轻食，绿色系高颜值杯身",
     "category": "非咖啡·健康饮品",
     "is_blind": True
 }
@@ -760,11 +867,100 @@ LUCKIN_YOGURT_MANGO = {
 }
 
 
+# ============================================================
+# 回测产品库（已知结果）
+# ============================================================
+
+# --- 已验证回测 ---
+BACKTEST_CHUCHENG = {
+    "name": "褚橙拿铁",
+    "brand": "瑞幸咖啡",
+    "price": "约29元",
+    "description": "与褚氏农业联名，使用云南褚橙果汁+拿铁，橙香咖啡组合，致敬褚时健创业精神",
+    "category": "咖啡·联名特饮",
+    "is_blind": False,
+    "known_outcome": "SUCCESS",
+    "known_data": "首周695万杯（2024年1月）"
+}
+
+BACKTEST_DRAGON_CHOC = {
+    "name": "龙年酱香巧克力",
+    "brand": "瑞幸咖啡",
+    "price": "约38元",
+    "description": "龙年限定，茅台酱香+巧克力，不含咖啡，延续酱香拿铁联名热度",
+    "category": "非咖啡·联名特饮",
+    "is_blind": False,
+    "known_outcome": "FAILURE",
+    "known_data": "上市首日部分门店仅售3杯（2024年1月）"
+}
+
+# --- 新增回测 ---
+BACKTEST_BUTTER_BEAR = {
+    "name": "小黄油拿铁",
+    "brand": "瑞幸咖啡",
+    "price": "约19元",
+    "description": "与泰国甜品IP黄油小熊联名，黄油风味拿铁，配专属黄油小熊杯套和贴纸，高颜值打卡款",
+    "category": "咖啡·联名特饮",
+    "is_blind": False,
+    "known_outcome": "SUCCESS",
+    "known_data": "首周1333万杯（2024年Q4），成为当季仅次于生椰拿铁的TOP2单品"
+}
+
+BACKTEST_GREEN_DUOLINGO = {
+    "name": "绿沙沙拿铁",
+    "brand": "瑞幸咖啡",
+    "price": "约16元",
+    "description": "与多邻国APP联名，抹茶+拿铁，绿色系饮品配多邻国猫头鹰杯套，联名周边'屁屁杯'",
+    "category": "咖啡·联名特饮",
+    "is_blind": False,
+    "known_outcome": "SUCCESS",
+    "known_data": "首周900万杯（2025年7月），联名周边上线即售罄"
+}
+
+BACKTEST_LICHEE = {
+    "name": "长安荔枝冰萃",
+    "brand": "瑞幸咖啡",
+    "price": "约18元",
+    "description": "与热播剧《长安的荔枝》联名，荔枝果肉+冰萃咖啡，夏季清爽口感，古风包装设计",
+    "category": "咖啡·影视联名",
+    "is_blind": False,
+    "known_outcome": "SUCCESS",
+    "known_data": "首周850万杯（2025年6月）"
+}
+
+BACKTEST_BITTER_MELON = {
+    "name": "苦瓜轻体果蔬茶",
+    "brand": "瑞幸咖啡",
+    "price": "约15元",
+    "description": "苦瓜+羽衣甘蓝+西柚粒等8种果蔬，主打清热降火减脂，先苦后甘口感，健康概念",
+    "category": "非咖啡·健康饮品",
+    "is_blind": False,
+    "known_outcome": "MODERATE",
+    "known_data": "社交平台掀起'吃苦风'话题，苦瓜饮品外卖量同比增长11倍（2026年3月），但无官方首周销量公布"
+}
+
+ALL_BACKTESTS = {
+    "chucheng": BACKTEST_CHUCHENG,
+    "dragon": BACKTEST_DRAGON_CHOC,
+    "butter": BACKTEST_BUTTER_BEAR,
+    "duolingo": BACKTEST_GREEN_DUOLINGO,
+    "lichee": BACKTEST_LICHEE,
+    "bitter_melon": BACKTEST_BITTER_MELON,
+}
+
+ALL_BLINDTESTS = {
+    "avocado": LUCKIN_YOGURT_AVOCADO,
+    "mango": LUCKIN_YOGURT_MANGO,
+}
+
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="TOMO Taste Lab v3.0 — 多模型消费者模拟引擎")
-    parser.add_argument("--product", choices=["avocado", "mango", "both"], default="both",
-                        help="要测试的产品")
+    parser.add_argument("--product", default="both",
+                        help="产品代号: avocado, mango, both（盲测）; "
+                             "chucheng, dragon, butter, duolingo, lichee, bitter_melon（回测）; "
+                             "all-backtest（全部回测）; both（默认，两个盲测）")
     parser.add_argument("--n", type=int, default=500,
                         help="模拟消费者数量（默认500，最少100，确保统计可靠）")
     parser.add_argument("--output", default="./reports",
@@ -778,104 +974,22 @@ if __name__ == "__main__":
         args.n = 100
 
     products = []
-    if args.product in ["avocado", "both"]:
-        products.append(LUCKIN_YOGURT_AVOCADO)
-    if args.product in ["mango", "both"]:
-        products.append(LUCKIN_YOGURT_MANGO)
-
-    for product in products:
-        run_simulation(product, n_personas=args.n, output_dir=args.output, model_mode=args.models)
-        print()
- 次（换一个 temperature）
-            if result.get("error") == "json_parse_failed":
-                time.sleep(0.3)
-                result = evaluate_with_llm(clients, model_key, persona, product)
-            # 限速：每 10 个请求暂停 0.5s，避免 rate limit
-            if i % 10 == 9:
-                time.sleep(0.5)
-
-        results.append(result)
-
-        if (i + 1) % 50 == 0 or (i + 1) == n_personas:
-            errors = sum(1 for r in results if "error" in r)
-            print(f"  进度: {i+1}/{n_personas} (错误: {errors})")
-
-    errors = sum(1 for r in results if "error" in r)
-    print(f"  完成: {n_personas}/{n_personas} (错误: {errors})\n")
-
-    # 汇总
-    print("📊 汇总分析...")
-    summary = aggregate_results(results, personas, product["name"])
-
-    # 生成报告
-    print("📝 生成报告...")
-    report_path, data_path, report_hash = generate_report(summary, product, baselines, output_dir)
-
-    print(f"\n{'=' * 60}")
-    print(f"✅ 模拟完成")
-    print(f"  预测: {summary['prediction']}")
-    print(f"  平均分: {summary['avg_score']}/10")
-    print(f"  尝试意愿: {summary['try_rate']}%")
-    if summary.get("model_stats") and len(summary["model_stats"]) > 1:
-        print(f"  模型间一致性:")
-        for m, s in summary["model_stats"].items():
-            print(f"    {m}: 平均分 {s['avg_score']}, 尝试率 {s['try_rate']}%")
-    print(f"  报告: {report_path}")
-    print(f"  数据: {data_path}")
-    print(f"  Hash: {report_hash}")
-    if summary.get("is_mock"):
-        print(f"  ⚠️  MOCK 模式 — 数据非真实 LLM 输出")
-    print(f"{'=' * 60}")
-
-    return summary
-
-
-# ============================================================
-# 6. 产品定义
-# ============================================================
-
-# 瑞幸酸奶昔 — 盲测对象
-LUCKIN_YOGURT_AVOCADO = {
-    "name": "牛油果羽衣酸奶昔",
-    "brand": "瑞幸咖啡",
-    "price": "约25元",
-    "description": "牛油果+羽衣甘蓝+酸奶的健康榅念饮品，主打低卡轷食，绿色系高颜值杯身",
-    "category": "非咖啡·健康饮品",
-    "is_blind": True
-}
-
-LUCKIN_YOGURT_MANGO = {
-    "name": "瓦尔登蓝芒果酸奶昔",
-    "brand": "瑞幸咖啡",
-    "price": "约25元",
-    "description": "芒果+蓝色螺旋藻+酸奶的高颜值饮品，蓝色渐变视觉效果，主打拍照分享",
-    "category": "非咖啡·健康饮品",
-    "is_blind": True
-}
-
-
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="TOMO Taste Lab v3.0 — 多模型消费者模拟引擎")
-    parser.add_argument("--product", choices=["avocado", "mango", "both"], default="both",
-                        help="要测试的产品")
-    parser.add_argument("--n", type=int, default=500,
-                        help="模拟消费者数量（默认500，最少100，确保统计可靠）")
-    parser.add_argument("--output", default="./reports",
-                        help="输出目录")
-    parser.add_argument("--models", choices=["multi", "claude-only"], default="multi",
-                        help="模型模式：multi=所有可用模型, claude-only=仅Claude")
-    args = parser.parse_args()
-
-    if args.n < 100:
-        print("⚠️  最少需要 100 个消费者以保证统计可靠性。已自动调整为 100。")
-        args.n = 100
-
-    products = []
-    if args.product in ["avocado", "both"]:
-        products.append(LUCKIN_YOGURT_AVOCADO)
-    if args.product in ["mango", "both"]:
-        products.append(LUCKIN_YOGURT_MANGO)
+    if args.product == "both":
+        products = [LUCKIN_YOGURT_AVOCADO, LUCKIN_YOGURT_MANGO]
+    elif args.product == "all-backtest":
+        products = list(ALL_BACKTESTS.values())
+        if not args.output or args.output == "./reports":
+            args.output = "./reports_backtest"
+    elif args.product in ALL_BLINDTESTS:
+        products = [ALL_BLINDTESTS[args.product]]
+    elif args.product in ALL_BACKTESTS:
+        products = [ALL_BACKTESTS[args.product]]
+        if not args.output or args.output == "./reports":
+            args.output = "./reports_backtest"
+    else:
+        print(f"❌ 未知产品: {args.product}")
+        print(f"可用: {', '.join(list(ALL_BLINDTESTS.keys()) + list(ALL_BACKTESTS.keys()) + ['both', 'all-backtest'])}")
+        sys.exit(1)
 
     for product in products:
         run_simulation(product, n_personas=args.n, output_dir=args.output, model_mode=args.models)
