@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "hash": "3004e026aa0a9d5c",
+    "timestamp": "2026-05-10 17:36",
+    "engine_version": "3.0",
+    "n_personas": 500,
+    "is_blind_test": true,
+    "is_mock": false,
+    "models_used": [
+      "claude-haiku",
+      "claude-sonnet"
+    ],
+    "disclaimer": "BLIND TEST - prediction locked before outcome"
+  },
+  "summary": {
+    "product_name": "瓦尔登蓝芒果酸奶昔",
+    "n_valid": 500,
+    "n_errors": 0,
+    "avg_score": 5.4,
+    "try_rate": 19.2,
+    "maybe_try_rate": 73.6,
+    "repurchase_rate": 0.0,
+    "recommend_rate": 49.4,
+    "prediction": "FAILURE",
+    "segments": {
+      "年龄:18-24": {
+        "n": 141,
+        "avg_score": 6.0,
+        "try_rate": 22.7
+      },
+      "年龄:41-50": {
+        "n": 73,
+        "avg_score": 4.8,
+        "try_rate": 20.5
+      },
+      "年龄:25-30": {
+        "n": 161,
+        "avg_score": 5.5,
+        "try_rate": 21.1
+      },
+      "年龄:31-40": {
+        "n": 125,
+        "avg_score": 5.1,
+        "try_rate": 12.0
+      },
+      "城市层级:三线及以下": {
+        "n": 132,
+        "avg_score": 5.2,
+        "try_rate": 17.4
+      },
+      "城市层级:二线": {
+        "n": 141,
+        "avg_score": 5.7,
+        "try_rate": 23.4
+      },
+      "城市层级:一线": {
+        "n": 105,
+        "avg_score": 5.4,
+        "try_rate": 18.1
+      },
+      "城市层级:新一线": {
+        "n": 122,
+        "avg_score": 5.4,
+        "try_rate": 17.2
+      },
+      "性别:女性": {
+        "n": 278,
+        "avg_score": 5.6,
+        "try_rate": 21.9
+      },
+      "性别:男性": {
+        "n": 222,
+        "avg_score": 5.2,
+        "try_rate": 15.8
+      },
+      "收入:5K-10K": {
+        "n": 159,
+        "avg_score": 5.5,
+        "try_rate": 18.2
+      },
+      "收入:10K-20K": {
+        "n": 139,
+        "avg_score": 5.4,
+        "try_rate": 20.9
+      },
+      "收入:20K+": {
+        "n": 79,
+        "avg_score": 5.5,
+        "try_rate": 29.1
+      },
+      "收入:学生/月入<5K": {
+        "n": 123,
+        "avg_score": 5.4,
+        "try_rate": 12.2
+      },
+      "新品态度:保守派": {
+        "n": 70,
+        "avg_score": 4.7,
+        "try_rate": 1.4
+      },
+      "新品态度:跟风但谨慎": {
+        "n": 180,
+        "avg_score": 5.7,
+        "try_rate": 3.3
+      },
+      "新品态度:实用主义": {
+        "n": 155,
+        "avg_score": 5.0,
+        "try_rate": 7.1
+      },
+      "新品态度:尝鲜狂人": {
+        "n": 95,
+        "avg_score": 6.2,
+        "try_rate": 82.1
+      }
+    },
+    "model_stats": {
+      "claude-haiku": {
+        "n": 250,
+        "avg_score": 5.7,
+        "try_rate": 22.0
+      },
+      "claude-sonnet": {
+        "n": 250,
+        "avg_score": 5.2,
+        "try_rate": 16.4
+      }
+    },
+    "sample_reactions": [
+      {
+        "persona_id": 0,
+        "summary": "颜值可以，但25块钱有点小贵，适合偶尔为了拍照去尝一次，不太可能成为常规购买",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 1,
+        "summary": "颜值在线但螺旋藻这个东西太陌生了，感觉是拍照用的不是喝的，买一次就够了。",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 2,
+        "summary": "颜值能打适合拍照，但这类产品我更看重喝起来怎么样，光好看没用。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 3,
+        "summary": "颜值噱头大于实际，年轻女孩子的东西，跟我关系不大。",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 4,
+        "summary": "颜值不错能拍照，但这价格我更想喝杯有货真价实的咖啡",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 5,
+        "summary": "颜值拉满但就是个网红款，打卡用的，不是用来喝的",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 6,
+        "summary": "就是个拍照的噱头，对我这个年纪的人来说没啥吸引力，而且还不便宜。",
+        "score": 4,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 7,
+        "summary": "颜色好看适合拍照发朋友圈，但25块钱买个蓝色我有点心疼，喝一次当尝鲜就算了",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 8,
+        "summary": "颜值分9分，但这种高颜值饮品往往喝起来一般般，我会先拍照再说",
+        "score": 7,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 9,
+        "summary": "颜值拉满冲动消费没问题，但螺旋藻这个概念在我们这边很难说，大概率是拍一次就不买了的网红款",
+        "score": 7,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 10,
+        "summary": "颜值不错但感觉有点营销过头，值得试一次但不一定会回头。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 11,
+        "summary": "颜值拉满适合发小红书，但螺旋藻这个成分让我有点不确定，得等朋友先踩坐",
+        "score": 7,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 12,
+        "summary": "就是个看起来不错的饮品，拍照可以，喝的价值一般般",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 13,
+        "summary": "颜值拉满但就是个拍照用的，喝完一杯就是下一个新品了。",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 14,
+        "summary": "看起来漂亮但有点营销过度，尝试欲望一般般，要看口碑再说。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 15,
+        "summary": "就是个拍照道具，不是我这个年纪的人会认真对待的饮料。",
+        "score": 4,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 16,
+        "summary": "颜值不错但不是我的菜，得先看别人反馈再说，25块钱对我来说也不是小数目。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 17,
+        "summary": "颜值不错适合拍照发小红书，但25块钱就图个好看，喝完就忘了那种",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 18,
+        "summary": "蓝色是挺好看的，但就是一个拍照饮品，喝不喝无所谓。",
+        "score": 5,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 19,
+        "summary": "颜值拉满但感觉就是个拍照道具，喝一次够了",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 20,
+        "summary": "颜值营销的产品，对我这种务实的人来说没什么吸引力。",
+        "score": 4,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 21,
+        "summary": "颜值给你及格分，但我不会为了一杯蓝色饮料专门去打卡，好看不等于好喝",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 22,
+        "summary": "颜值不错但卖点有点虚，好喝才是真的，不然就是交昷商税。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 23,
+        "summary": "颜值在线但就是个拍照道具，味道存疑，适合发朋友圈但不一定值得专门去买。",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 24,
+        "summary": "颜值打满分，喝一次尝鲜，不指望复购，但绝对是个朋友圈素材",
+        "score": 7,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 25,
+        "summary": "适合拍照发小红书，但不是我会主动复购的那种，颜值大于实用。",
+        "score": 6,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 26,
+        "summary": "颜值不错，拍照可以，但25块钱一杯我得先看别人怎么评价才敢买。",
+        "score": 7,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 27,
+        "summary": "看着挺好看，但25块买个颜色我觉得没必要，好不好喝还是个问题",
+        "score": 5,
+        "model": "claude-sonnet"
+      },
+      {
+        "persona_id": 28,
+        "summary": "颜值打满分，但螺旋藻这个噱头有点怕踩坑，先试试再说。",
+        "score": 6,
+        "model": "claude-haiku"
+      },
+      {
+        "persona_id": 29,
+        "summary": "颜值高但对我没用，我去瑞幸是为了咖啡因不是为了拍照的。",
+        "score": 4,
+        "model": "claude-sonnet"
+      }
+    ],
+    "is_mock": false
+  },
+  "baselines": {
+    "claude-haiku": {
+      "prediction": "MODERATE",
+      "try_rate": 58,
+      "score": 6.5,
+      "reasons": [
+        "颜值驱动力强但生命周期短——蓝色螺旋藻+渐变视觉在社交媒体高曝光，初期尝试率可观，但健康饮品的话题热度衰减快，重复购买率预计仅30-40%",
+        "价格与价值感失衡——25元定价在瑞并高端系列中属中上，但螺旋藻成分认知度有限，消费者可能将其视为'为颜值溢价'，难以形成理性复购理由",
+        "非咖啡品类天然流量助势——瑞幸核心用户以咖啡消费为主，跨类目转化率通常不超过35%；夏季可能短期走量，但缺乏季度贡献支撑"
+      ],
+      "raw": "```json\n{\n  \"prediction\": \"MODERATE\",\n  \"try_rate\": 58,\n  \"score\": 6.5,\n  \"reasons\": [\n    \"颜值驱动力强但生命周期短——蓝色螺旋藻+渐变视觉在社交媒体高曝光，初期尝试率可观，但健康饮品的话题热度衰减快，重复购买率预计仅30-40%\",\n    \"价格与价值感失衡——25元定价在瑞并高端系列中属中上，但螺旋藻成分认知度有限，消费者可能将其视为'为颜值溢价'，难以形成理性复购理由\",\n    \"非咖啡品类天然流量助势——瑞幸核心用户以咖啡消费为主，跨类目转化率通常不超过35%；夏季可能短期走量，但缺乏季度贡献支撑\"\n  ]\n}\n```\n\n**补充分析：**\n\n| 维度 | "
+    }
+  },
+  "product": {
+    "name": "瓦尔登蓝芒果酸奶昔",
+    "brand": "瑞幸咖啡",
+    "price": "约25元",
+    "description": "芒果+蓝色螺旋藻+酸奶的高颜值饮品，蓝色渐变视觉效果，主打拍照分享",
+    "category": "非咖啡·健康饮品",
+    "is_blind": true
+  }
+}
